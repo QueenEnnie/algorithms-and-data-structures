@@ -1,5 +1,5 @@
 import unittest
-from utils import *
+from lab2.utils import *
 from lab2.task4.src.main import binary_search
 from random import randint
 

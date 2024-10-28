@@ -1,4 +1,4 @@
-from utils import *
+from lab2.utils import *
 
 
 def merge_sort(numbers):

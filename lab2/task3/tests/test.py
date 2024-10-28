@@ -1,5 +1,5 @@
 import unittest
-from utils import *
+from lab2.utils import *
 from lab2.task3.src import main
 
 

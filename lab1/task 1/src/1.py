@@ -12,8 +12,9 @@ for i in range(1, len(numbers)):
     j = i - 1
     while j >= 0 and temp < numbers[j]:
         numbers[j + 1] = numbers[j]
+        numbers[j]
         j = j - 1
-    numbers[j + 1] = temp
+    numbers[j + 1][1] = temp
 
 with open("output.txt", "w") as file:
     file.write(" ".join(map(str, numbers)))

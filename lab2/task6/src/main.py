@@ -1,4 +1,4 @@
-from utils import *
+from lab2.utils import *
 
 
 def find_max_crossing_subarray(profits, low, middle, high):

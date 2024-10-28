@@ -1,5 +1,5 @@
 import unittest
-from utils import *
+from lab2.utils import *
 from lab2.task1.src import main
 from random import randint
 

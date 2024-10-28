@@ -1,4 +1,4 @@
-from utils import *
+from lab2.utils import *
 
 def majority(array):
     candidate, count = None, 0

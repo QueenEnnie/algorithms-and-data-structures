@@ -1,5 +1,5 @@
 import unittest
-from utils import *
+from lab2.utils import *
 from lab2.task5.src.main import majority
 from random import randint
 

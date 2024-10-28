@@ -1,4 +1,4 @@
-from utils import *
+from lab2.utils import *
 
 def binary_search(array, target):
     left, right = 0, len(array) - 1
