@@ -1,6 +1,6 @@
 import unittest
 from lab2.utils import *
-from lab2.task5.src.main import majority
+from lab2.task5.src.task5 import majority
 from random import randint
 
 

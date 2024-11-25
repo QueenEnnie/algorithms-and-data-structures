@@ -1,6 +1,6 @@
 import unittest
 from lab2.utils import *
-from lab2.task6.src.main import find_maximum_subarray
+from lab2.task6.src.task6 import find_maximum_subarray
 
 
 def find_majority(array):

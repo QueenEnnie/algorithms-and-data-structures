@@ -1,11 +1,11 @@
 import unittest
 from lab2.utils import *
-from lab2.task10.src import main
+from lab2.task10.src import task10
 from random import randint
 
 DATA = [randint(-10 ** 9, 10 ** 9) for _ in range(10 ** 5)]
 
-class MergeSort(unittest.TestCase):
+class MergeSortFast(unittest.TestCase):
     def test_should_merge_sort_from_file(self):
         start_time, start_memory = start_time_memory()
         data = list(map(int, read_from_file()[1].split()))

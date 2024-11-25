@@ -1,6 +1,6 @@
 import unittest
 from lab2.utils import *
-from lab2.task4.src.main import binary_search
+from lab2.task4.src.task4 import binary_search
 from random import randint
 
 DATA = [randint(-10 ** 9, 10 ** 9) for _ in range(10 ** 5)]
