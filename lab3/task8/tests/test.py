@@ -1,41 +1,27 @@
 import unittest
-from lab2.utils import *
-from lab2.task1.src.task1 import *
-from random import randint
+from lab3.utils import start_time_memory, print_time_memory, read_from_file
+from lab3.task8.src.task8 import find_closet_to_origin
 
-DATA = [randint(-10 ** 9, 10 ** 9) for _ in range(10 ** 5)]
 
-class MergeSort(unittest.TestCase):
-    def test_should_merge_sort_from_file(self):
-        data = list(map(int, read_from_file()[1].split()))
+class TestClosestToOrigin(unittest.TestCase):
+    def test_should_find_closest_to_origin_from_file(self):
+        data = read_from_file()
+        number_out = int(data[0].split()[1])
+        coordinates = [(int(elem.split()[0]), int(elem.split()[1])) for elem in data[1:]]
         start_time, start_memory = start_time_memory()
-        result = merge_sort(data)
-        print_time_memory("test_should_merge_sort_from_file",
+        result = find_closet_to_origin(coordinates, number_out)
+        print_time_memory("test_should_find_closest_to_origin_from_file",
                           start_time, start_memory)
-        self.assertEqual(result, sorted(data))
+        self.assertEqual(result, [(3, 3), (-2, 4)])
 
-    def test_should_merge_big_numbers_reversed(self):
+    def test_should_find_closest_to_origin_first_example(self):
+        number_out = 1
+        coordinates = [(1, 3), (-2, 2)]
         start_time, start_memory = start_time_memory()
-        data = sorted(DATA)[::-1]
-        result = merge_sort(data)
-        print_time_memory("test_should_merge_big_numbers_reversed",
+        result = find_closet_to_origin(coordinates, number_out)
+        print_time_memory("test_should_find_closest_to_origin_first_example",
                           start_time, start_memory)
-        self.assertEqual(result, sorted(data))
-
-    def test_should_merge_big_numbers_sorted(self):
-        start_time, start_memory = start_time_memory()
-        data = sorted(DATA)
-        result = merge_sort(data)
-        print_time_memory("test_should_merge_big_numbers_sorted",
-                          start_time, start_memory)
-        self.assertEqual(result, sorted(data))
-
-    def test_should_merge_big_numbers(self):
-        start_time, start_memory = start_time_memory()
-        result = merge_sort(DATA)
-        print_time_memory(" test_should_merge_big_numbers",
-                          start_time, start_memory)
-        self.assertEqual(result, sorted(DATA))
+        self.assertEqual(result, [(-2, 2)])
 
 
 if __name__ == "__main__":

@@ -1,41 +1,30 @@
 import unittest
-from lab2.utils import *
-from lab2.task1.src.task1 import *
-from random import randint
+from lab3.utils import start_time_memory, read_from_file, print_time_memory
+from lab3.task4.src.task4 import count_points_in_segments
 
-DATA = [randint(-10 ** 9, 10 ** 9) for _ in range(10 ** 5)]
 
-class MergeSort(unittest.TestCase):
-    def test_should_merge_sort_from_file(self):
-        data = list(map(int, read_from_file()[1].split()))
+class TestCountPointsInSegments(unittest.TestCase):
+
+    def test_should_count_segments_second_example(self):
+        segments = [[-10, 10]]
+        points = [-100, 100, 0]
+
         start_time, start_memory = start_time_memory()
-        result = merge_sort(data)
-        print_time_memory("test_should_merge_sort_from_file",
+        result = count_points_in_segments(segments, points)
+        print_time_memory("test_should_count_segments_second_example",
                           start_time, start_memory)
-        self.assertEqual(result, sorted(data))
+        self.assertEqual(result, [0, 0, 1])
 
-    def test_should_merge_big_numbers_reversed(self):
-        start_time, start_memory = start_time_memory()
-        data = sorted(DATA)[::-1]
-        result = merge_sort(data)
-        print_time_memory("test_should_merge_big_numbers_reversed",
-                          start_time, start_memory)
-        self.assertEqual(result, sorted(data))
+    def test_should_count_segments_from_file(self):
+        data = read_from_file()
+        segments = [list(map(int, elem.split())) for elem in data[1:-1]]
+        points = list(map(int, data[-1].split()))
 
-    def test_should_merge_big_numbers_sorted(self):
         start_time, start_memory = start_time_memory()
-        data = sorted(DATA)
-        result = merge_sort(data)
-        print_time_memory("test_should_merge_big_numbers_sorted",
+        result = count_points_in_segments(segments, points)
+        print_time_memory("test_should_count_segments_from_file",
                           start_time, start_memory)
-        self.assertEqual(result, sorted(data))
-
-    def test_should_merge_big_numbers(self):
-        start_time, start_memory = start_time_memory()
-        result = merge_sort(DATA)
-        print_time_memory(" test_should_merge_big_numbers",
-                          start_time, start_memory)
-        self.assertEqual(result, sorted(DATA))
+        self.assertEqual(result, [1, 0, 0])
 
 
 if __name__ == "__main__":

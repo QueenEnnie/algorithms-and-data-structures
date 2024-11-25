@@ -16,7 +16,7 @@ def count_points_in_segments(segments, points):
             segments_count += -elem_type
         else:
             point_count[elem] = segments_count
-    return point_count.values()
+    return list(point_count.values())
 
 def task4():
     data = read_from_file()

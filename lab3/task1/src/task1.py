@@ -1,4 +1,4 @@
-from lab3.utils import *
+from lab3.utils import read_from_file, write_in_file
 from random import randint
 
 def three_way_partition(array, left_index, right_index):
