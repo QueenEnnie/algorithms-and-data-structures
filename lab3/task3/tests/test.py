@@ -5,25 +5,38 @@ from lab3.task3.src.task3 import scarecrow_sort
 
 class TestScarecrowSort(unittest.TestCase):
     def test_should_scarecrow_sort_from_file(self):
-        start_time, start_memory = start_time_memory()
-
+        # given
         data = read_from_file()
         step = int(data[0].split()[1])
         numbers = list(map(int, data[1].split()))
+        expected_result = "ДА"
+
+        start_time, start_memory = start_time_memory()
+
+        # when
         result = "ДА" if scarecrow_sort(numbers, step) else "НЕТ"
 
         print_time_memory("test_should_merge_sort_from_file",
                           start_time, start_memory)
-        self.assertEqual(result, "ДА")
+        # then
+        self.assertEqual(result, expected_result)
 
     def test_should_scarecrow_sort(self):
-        start_time, start_memory = start_time_memory()
+        # given
         numbers = [2, 1, 3]
         step = 2
+        expected_result = "НЕТ"
+
+        start_time, start_memory = start_time_memory()
+
+        # when
         result = "ДА" if scarecrow_sort(numbers, step) else "НЕТ"
+
         print_time_memory("test_should_scarecrow_sort",
                           start_time, start_memory)
-        self.assertEqual(result, "НЕТ")
+
+        # then
+        self.assertEqual(result, expected_result)
 
 
 
