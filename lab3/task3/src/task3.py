@@ -1,6 +1,11 @@
+import os
 from lab3.utils import *
 from lab3.task1.src.task1 import randomized_quick_sort
-from random import randint
+
+
+PATH_INPUT = os.path.abspath(os.path.join(os.path.split(os.getcwd())[0], 'txtf', 'input.txt'))
+PATH_OUTPUT = os.path.abspath(os.path.join(os.path.split(os.getcwd())[0], 'txtf', 'output.txt'))
+
 
 def scarecrow_sort(array, step):
     groups = [[] for _ in range(step)]
@@ -20,13 +25,20 @@ def scarecrow_sort(array, step):
             return False
     return True
 
-def task1():
-    data = read_from_file()
+def task3():
+    print("Задание №3")
+    print("Входные данные:")
+    print("".join(read_from_file(PATH_INPUT)))
+
+    data = read_from_file(PATH_INPUT)
     step = int(data[0].split()[1])
     numbers = list(map(int, data[1].split()))
     result = "ДА" if scarecrow_sort(numbers, step) else "НЕТ"
-    write_in_file(result)
+    write_in_file(result, PATH_OUTPUT)
+
+    print("Выходные данные:")
+    print(result)
 
 
 if __name__ == "__main__":
-    task1()
+    task3()

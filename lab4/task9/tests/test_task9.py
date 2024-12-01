@@ -1,4 +1,7 @@
-import unittest
+import unittest, os, sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
+
 from lab3.utils import start_time_memory, print_time_memory, read_from_file, quicksort_with_key
 from lab3.task9.src.task9 import closest_pair
 
@@ -20,6 +23,7 @@ class TestClosestPoints(unittest.TestCase):
 
         # then
         self.assertEqual(result, expected_result)
+        # self.assertLessEqual()
 
     def test_should_find_closest_second_example(self):
         #given

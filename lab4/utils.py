@@ -25,20 +25,4 @@ def print_time_memory(name, start_time, start_memory):
     print(f"Память: {memory_profiler.memory_usage()[0] - start_memory} Мб", "\n")
 
 
-def quicksort_with_key(array, begin, end, k=0):
-    if begin >= end:
-        return
-    pivot = array[end]
-    left_i, right_i = begin, end - 1
-    while left_i <= right_i:
-        while left_i <= right_i and array[left_i][k] < pivot[k]:
-            left_i += 1
-        while left_i <= right_i and pivot[k] < array[right_i][k]:
-            right_i -= 1
-        if left_i <= right_i:
-            array[left_i], array[right_i] = array[right_i], array[left_i]
-            left_i, right_i = left_i + 1, right_i - 1
-    array[left_i], array[end] = array[end], array[left_i]
-    quicksort_with_key(array, begin, left_i - 1, k)
-    quicksort_with_key(array, left_i + 1, end, k)
 

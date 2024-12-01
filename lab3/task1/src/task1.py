@@ -1,5 +1,12 @@
+import os
+
 from lab3.utils import read_from_file, write_in_file
 from random import randint
+
+
+PATH_INPUT = os.path.abspath(os.path.join(os.path.split(os.getcwd())[0], 'txtf', 'input.txt'))
+PATH_OUTPUT = os.path.abspath(os.path.join(os.path.split(os.getcwd())[0], 'txtf', 'output.txt'))
+
 
 def three_way_partition(array, left_index, right_index):
     pivot = array[left_index]
@@ -26,12 +33,20 @@ def randomized_quick_sort(array, left_index, right_index):
         less_than, greater_than = three_way_partition(array, left_index, right_index)
         randomized_quick_sort(array, left_index, less_than - 1)
         randomized_quick_sort(array, greater_than + 1, right_index)
+    return array
 
 
 def task1():
-    data = list(map(int, read_from_file()[1].split()))
-    randomized_quick_sort(data, 0, len(data) - 1)
-    write_in_file(" ".join(map(str, data)))
+    print("Задание №1")
+    print("Входные данные:")
+    print("".join(read_from_file(PATH_INPUT)))
+
+    data = list(map(int, read_from_file(PATH_INPUT)[1].split()))
+    result = " ".join(map(str, randomized_quick_sort(data, 0, len(data) - 1)))
+    write_in_file(result, PATH_OUTPUT)
+
+    print("Выходные данные:")
+    print(result)
 
 
 if __name__ == "__main__":

@@ -1,4 +1,7 @@
-import unittest
+import unittest, os, sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
+
 from lab3.utils import start_time_memory, read_from_file, print_time_memory
 from lab3.task4.src.task4 import count_points_in_segments
 

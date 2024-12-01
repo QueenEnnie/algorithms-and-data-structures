@@ -1,4 +1,7 @@
-import unittest
+import unittest, os, sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
+
 from lab3.utils import start_time_memory, print_time_memory, read_from_file
 from lab3.task8.src.task8 import find_closet_to_origin
 

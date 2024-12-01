@@ -1,4 +1,7 @@
-import unittest
+import unittest, os, sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
+
 from lab3.utils import read_from_file, start_time_memory, print_time_memory
 from lab3.task1.src.task1 import randomized_quick_sort
 from random import randint

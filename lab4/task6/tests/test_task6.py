@@ -1,4 +1,7 @@
-import unittest
+import unittest, os, sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
+
 from lab3.utils import print_time_memory, start_time_memory, read_from_file
 from lab3.task3.src.task3 import scarecrow_sort
 
