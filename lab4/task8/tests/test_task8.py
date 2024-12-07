@@ -1,45 +1,53 @@
-import unittest, os, sys
+import unittest, os, sys, random
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
 
-from lab3.utils import start_time_memory, print_time_memory, read_from_file
-from lab3.task8.src.task8 import find_closet_to_origin
+from lab4.utils import start_time_memory, end_time_memory
+from lab4.task8.src.task8 import calculate_postfix
 
 
-class TestClosestToOrigin(unittest.TestCase):
-    def test_should_find_closest_to_origin_from_file(self):
+class TestCalculatePostfix(unittest.TestCase):
+    def test_should_correctness_of_finding(self):
         # given
-        data = read_from_file()
-        number_out = int(data[0].split()[1])
-        coordinates = [(int(elem.split()[0]), int(elem.split()[1])) for elem in data[1:]]
-        expected_result = [(3, 3), (-2, 4)]
+        data1 = ["5", "1", "2", "+", "4", "*", "+", "3", "-"]
+        expected_result1 = 14
 
-        start_time, start_memory = start_time_memory()
+        data2 = ["1", "2", "+", "3", "+", "4", "+"]
+        expected_result2 = 10
+
+        data3 = ["1", "2", "+", "3", "4", "+",
+                 "*", "5", "6", "+", "*", "7", "+"]
+        expected_result3 = 238
+
+        data4 = ["7"]
+        expected_result4 = 7
 
         # when
-        result = find_closet_to_origin(coordinates, number_out)
+        result1 = calculate_postfix(data1)
+        result2 = calculate_postfix(data2)
+        result3 = calculate_postfix(data3)
+        result4 = calculate_postfix(data4)
 
-        print_time_memory("test_should_find_closest_to_origin_from_file",
-                          start_time, start_memory)
         # then
-        self.assertEqual(result, expected_result)
+        self.assertEqual(result1, expected_result1)
+        self.assertEqual(result2, expected_result2)
+        self.assertEqual(result3, expected_result3)
+        self.assertEqual(result4, expected_result4)
 
-    def test_should_find_closest_to_origin_first_example(self):
+    def test_should_time_big_data(self):
         # given
-        number_out = 1
-        coordinates = [(1, 3), (-2, 2)]
-        expected_result = [(-2, 2)]
-
+        numbers = [str(random.randint(0, 9)) for _ in range(10 ** 6  // 2)]
+        operators = random.choices(['+', '-', '*'], k=10 ** 6 // 2 - 1)
+        postfix_expression = numbers + operators
         start_time, start_memory = start_time_memory()
 
         # when
-        result = find_closet_to_origin(coordinates, number_out)
+        calculate_postfix(postfix_expression)
+        end_time, end_memory = end_time_memory(start_time, start_memory)
 
-        print_time_memory("test_should_find_closest_to_origin_first_example",
-                          start_time, start_memory)
-
-        #then
-        self.assertEqual(result, expected_result)
+        # then
+        self.assertLessEqual(end_time, 2)
+        self.assertLessEqual(end_memory, 256)
 
 
 if __name__ == "__main__":

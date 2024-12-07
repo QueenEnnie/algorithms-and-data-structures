@@ -1,45 +1,41 @@
-import unittest, os, sys
+import unittest, os, sys, random
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
 
-from lab3.utils import print_time_memory, start_time_memory, read_from_file
-from lab3.task3.src.task3 import scarecrow_sort
+from lab4.utils import start_time_memory, end_time_memory
+from lab4.task6.src.task6 import ArrayQueue, complete_operations
 
 
-class TestScarecrowSort(unittest.TestCase):
-    def test_should_scarecrow_sort_from_file(self):
+class TestArrayQueue(unittest.TestCase):
+    def test_should_check_correctness(self):
         # given
-        data = read_from_file()
-        step = int(data[0].split()[1])
-        numbers = list(map(int, data[1].split()))
-        expected_result = "ДА"
-
-        start_time, start_memory = start_time_memory()
+        data = ["+ 9", "+ 3", "+ 6", "?", "-", "?", "-", "?", "+ 1", "?"]
+        expected_result = [3, 3, 6, 1]
 
         # when
-        result = "ДА" if scarecrow_sort(numbers, step) else "НЕТ"
+        result = complete_operations(data)
 
-        print_time_memory("test_should_merge_sort_from_file",
-                          start_time, start_memory)
         # then
         self.assertEqual(result, expected_result)
 
-    def test_should_scarecrow_sort(self):
-        # given
-        numbers = [2, 1, 3]
-        step = 2
-        expected_result = "НЕТ"
 
+    def test_should_check_big_data_time_memory(self):
+        # given
+        data = []
+        for _ in range(10 ** 6 // 2):
+            data.append(f"+ {random.randint(-10 ** 9, 10 ** 9)}")
+        for _ in range(10 ** 6 // 4):
+            data.append("?")
+            data.append("-")
         start_time, start_memory = start_time_memory()
 
         # when
-        result = "ДА" if scarecrow_sort(numbers, step) else "НЕТ"
-
-        print_time_memory("test_should_scarecrow_sort",
-                          start_time, start_memory)
+        complete_operations(data)
+        end_time, end_memory = end_time_memory(start_time, start_memory)
 
         # then
-        self.assertEqual(result, expected_result)
+        self.assertLessEqual(end_time, 2)
+        self.assertLessEqual(end_memory, 256)
 
 
 

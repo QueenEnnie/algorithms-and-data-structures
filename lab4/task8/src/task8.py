@@ -1,30 +1,43 @@
-import os
-from lab3.utils import read_from_file, write_in_file, quicksort_with_key
-from math import sqrt
+import os, sys, random
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
+
+from lab4.utils import read_from_file, write_in_file
+from lab4.task1.src.task1 import ArrayStack
 
 
 PATH_INPUT = os.path.abspath(os.path.join(os.path.split(os.getcwd())[0], 'txtf', 'input.txt'))
 PATH_OUTPUT = os.path.abspath(os.path.join(os.path.split(os.getcwd())[0], 'txtf', 'output.txt'))
 
 
-def find_closet_to_origin(coordinates, number_out):
-    distance_coordinates = [[sqrt(x ** 2 + y ** 2), (x, y)] for x, y in coordinates]
-    quicksort_with_key(distance_coordinates, 0, len(distance_coordinates) - 1, 0)
-    return [elem[1] for elem in distance_coordinates[:number_out]]
+def calculate_postfix(math_expression):
+    stack = ArrayStack()
+    for elem in math_expression:
+        if elem.isdigit():
+            stack.push(int(elem))
+        else:
+            second = stack.pop()
+            first = stack.pop()
+            if elem == '+':
+                stack.push(first + second)
+            elif elem == '-':
+                stack.push(first - second)
+            elif elem == '*':
+                stack.push(first * second)
+    return stack.pop()
 
 def task8():
     print("Задание №8")
     print("Входные данные:")
     print("".join(read_from_file(PATH_INPUT)))
 
-    data = read_from_file(PATH_INPUT)
-    number_out = int(data[0].split()[1])
-    coordinates = [(int(elem.split()[0]), int(elem.split()[1])) for elem in data[1:]]
-    out = [f"[{elem[0]},{elem[1]}]" for elem in find_closet_to_origin(coordinates, number_out)]
-    write_in_file(",".join(out), PATH_OUTPUT)
+    data = read_from_file(PATH_INPUT)[1].split()
+    result = str(calculate_postfix(data))
+    write_in_file(result, PATH_OUTPUT)
 
     print("Выходные данные:")
-    print(",".join(out))
+    print(result)
+
 
 if __name__ == "__main__":
     task8()

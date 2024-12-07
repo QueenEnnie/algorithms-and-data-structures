@@ -2,6 +2,7 @@ import os, sys
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
 
+
 from lab4.utils import read_from_file, write_in_file
 
 
@@ -9,19 +10,38 @@ PATH_INPUT = os.path.abspath(os.path.join(os.path.split(os.getcwd())[0], 'txtf',
 PATH_OUTPUT = os.path.abspath(os.path.join(os.path.split(os.getcwd())[0], 'txtf', 'output.txt'))
 
 
-class ArrayStack:
+class LinkedStack:
+    class Node:
+        def __init__(self, elem, next_elem):
+            self.elem = elem
+            self.next_elem = next_elem
+
     def __init__(self):
-        self.array = []
+        self.head = None
+        self.size = 0
+
+    def __len__(self):
+        return self.size
+
+    def is_empty(self):
+        return self.size == 0
 
     def push(self, elem):
-        self.array.append(elem)
+        self.head = self.Node(elem, self.head)
+        self.size += 1
 
     def pop(self):
-        return self.array.pop()
+        if self.is_empty():
+            return "mistake" # ????!!!!
+        answer = self.head.elem
+        self.head = self.head.next_elem
+        self.size -= 1
+        return answer
+
 
 def complete_operations(operations):
     result = list()
-    stack = ArrayStack()
+    stack = LinkedStack()
     for operation in operations:
         if "+" in operation:
             stack.push(int(operation.split()[1]))
@@ -29,8 +49,8 @@ def complete_operations(operations):
             result.append(stack.pop())
     return result
 
-def task1():
-    print("Задание №1")
+def task13_1():
+    print("Задание №13.1")
     print("Входные данные:")
     print("".join(read_from_file(PATH_INPUT)))
 
@@ -42,5 +62,6 @@ def task1():
     print(result)
 
 
+
 if __name__ == "__main__":
-    task1()
+    task13_1()

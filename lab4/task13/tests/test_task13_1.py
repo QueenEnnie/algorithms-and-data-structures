@@ -5,6 +5,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../.
 from lab4.utils import start_time_memory, end_time_memory
 from lab4.task13.src.task13_1 import LinkedStack, complete_operations
 
+
 class TestLinkedStack(unittest.TestCase):
     def test_should_complete_operation_function(self):
         # given
