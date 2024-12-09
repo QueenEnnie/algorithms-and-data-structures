@@ -32,7 +32,7 @@ class LinkedStack:
 
     def pop(self):
         if self.is_empty():
-            return "mistake" # ????!!!!
+            return "stack is empty" # ????!!!!
         answer = self.head.elem
         self.head = self.head.next_elem
         self.size -= 1

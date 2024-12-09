@@ -38,7 +38,7 @@ class LinkedQueue:
 
     def dequeue(self):
         if self.is_empty():
-            return "mistake"
+            return "queue is empty"
         answer = self.head.elem
         self.head = self.head.next_elem
         self.size -= 1
