@@ -62,7 +62,7 @@ class TestCheckIsHeap(unittest.TestCase):
         end_time, end_memory = end_time_memory(start_time, start_memory)
 
         # then
-        self.assertLessEqual(result, expected_result)
+        self.assertEqual(result, expected_result)
         self.assertLessEqual(end_time, 2)
         self.assertLessEqual(end_memory, 256)
 
@@ -78,7 +78,7 @@ class TestCheckIsHeap(unittest.TestCase):
         end_time, end_memory = end_time_memory(start_time, start_memory)
 
         # then
-        self.assertLessEqual(result, expected_result)
+        self.assertEqual(result, expected_result)
         self.assertLessEqual(end_time, 2)
         self.assertLessEqual(end_memory, 256)
 

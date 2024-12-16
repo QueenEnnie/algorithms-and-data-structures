@@ -38,7 +38,7 @@
    ```
 3. Запустите программу:
    ```bash
-   python task1.py
+   python task5.py
    ```
 
 
