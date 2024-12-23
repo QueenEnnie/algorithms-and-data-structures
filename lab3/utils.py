@@ -1,5 +1,15 @@
 import time
+import random
 import memory_profiler
+
+
+def generate_segments(n, min_value=-10 ** 8, max_value=10 ** 8):
+    segments = []
+    for _ in range(n):
+        a = random.randint(min_value, max_value)
+        b = random.randint(a, max_value)
+        segments.append((a, b))
+    return segments
 
 
 def read_from_file(path):
@@ -19,11 +29,10 @@ def start_time_memory():
     return start_time, start_memory
 
 
-def print_time_memory(name, start_time, start_memory):
-    print(f"Название теста: {name}")
-    print(f"Время работы: {time.perf_counter() - start_time} с")
-    print(f"Память: {memory_profiler.memory_usage()[0] - start_memory} Мб", "\n")
-
+def end_time_memory(start_time, start_memory):
+    end_time = time.perf_counter() - start_time
+    end_memory = memory_profiler.memory_usage()[0] - start_memory
+    return end_time, end_memory
 
 def quicksort_with_key(array, begin, end, k=0):
     if begin >= end:

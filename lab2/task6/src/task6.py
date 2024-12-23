@@ -1,4 +1,13 @@
-from lab2.utils import *
+import os
+import sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
+
+from lab2.utils import read_from_file, write_in_file
+
+
+PATH_INPUT = os.path.abspath(os.path.join(os.path.split(os.getcwd())[0], 'txtf', 'input.txt'))
+PATH_OUTPUT = os.path.abspath(os.path.join(os.path.split(os.getcwd())[0], 'txtf', 'output.txt'))
 
 
 def find_max_crossing_subarray(profits, low, middle, high):
@@ -40,17 +49,24 @@ def find_maximum_subarray(profits, low, high):
 
 
 def task6():
-    data_read = read_from_file()
+    print("Задание №6")
+    print("Входные данные:")
+    print("".join(read_from_file(PATH_INPUT)))
+
+    data_read = read_from_file(PATH_INPUT)
     data = [[elem.split(",")[2], float(elem.split(",")[4].strip())] for elem in data_read[1:]]
     for i in range(len(data) - 1):
         data[i] = [data[i][0], data[i + 1][1] - data[i][1]]
     buy_day, sell_day, max_profit = find_maximum_subarray(data, 0, len(data) - 1)
-    write_in_file(f"Фирма: {data_read[1].split(',')[0]}\n"
-                  f"Период: {data_read[1].split(',')[2]} - {data_read[-1].split(',')[2]}\n"
-                  f"Дата покупки: {data[buy_day][0]}\n"
-                  f"Дата продажи: {data[sell_day][0]}\n"
-                  f"Сумма прибыли: {max_profit}")
+    result = f"Фирма: {data_read[1].split(',')[0]}\n"\
+             "Период: {data_read[1].split(',')[2]} - {data_read[-1].split(',')[2]}\n"\
+             "Дата покупки: {data[buy_day][0]}\n"\
+             "Дата продажи: {data[sell_day][0]}\n"\
+             f"Сумма прибыли: {max_profit}"
+    write_in_file(result, PATH_OUTPUT)
 
+    print("Выходные данные:")
+    print(result)
 
 if __name__ == "__main__":
     task6()

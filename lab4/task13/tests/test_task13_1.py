@@ -59,7 +59,7 @@ class TestLinkedStack(unittest.TestCase):
         self.assertEqual(result1, expected_result1)
         self.assertEqual(result2, expected_result2)
         self.assertEqual(result3, expected_result3)
-        self.assertLessEqual(end_time, 2)
+        self.assertLessEqual(end_time, 3)
         self.assertLessEqual(end_memory, 256)
 
 

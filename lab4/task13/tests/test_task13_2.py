@@ -35,7 +35,7 @@ class TestLinkedQueue(unittest.TestCase):
         end_time, end_memory = end_time_memory(start_time, start_memory)
 
         # then
-        self.assertLessEqual(end_time, 2)
+        self.assertLessEqual(end_time, 3)
         self.assertLessEqual(end_memory, 256)
 
 

@@ -1,4 +1,14 @@
-from lab2.utils import *
+import os
+import sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
+
+from lab1.utils import read_from_file, write_in_file
+
+
+PATH_INPUT = os.path.abspath(os.path.join(os.path.split(os.getcwd())[0], 'txtf', 'input.txt'))
+PATH_OUTPUT = os.path.abspath(os.path.join(os.path.split(os.getcwd())[0], 'txtf', 'output.txt'))
+
 
 def binary_addition(first, second):
     first = list(map(int, first.zfill(max(len(first), len(second)))))
@@ -12,9 +22,16 @@ def binary_addition(first, second):
     return new[::-1]
 
 def task9():
-    first_number, second_number = read_from_file()[0].split()
-    write_in_file("".join(map(str, binary_addition(first_number, second_number))))
+    print("Задание №1")
+    print("Входные данные:")
+    print("".join(read_from_file(PATH_INPUT)))
 
+    first_number, second_number = read_from_file(PATH_INPUT)[0].split()
+    result = "".join(map(str, binary_addition(first_number, second_number)))
+    write_in_file(result, PATH_OUTPUT)
+
+    print("Выходные данные:")
+    print(result)
 
 if __name__ == "__main__":
     task9()

@@ -31,11 +31,11 @@
    ```
 2. Перейдите в папку с проектом:
    ```bash
-   cd lab4/task6/src
+   cd lab4/task2/src
    ```
 3. Запустите программу:
    ```bash
-   python task6.py
+   python task3.py
    ```
 
 

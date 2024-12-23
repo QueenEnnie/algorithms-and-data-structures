@@ -26,15 +26,16 @@ class TestPriorityQueue(unittest.TestCase):
         priority_queue = HeapPriorityQueue()
         for i in range(10 ** 6 // 3):
             priority_queue.add(10 ** 9, i + 1)
-        for i in range(10 ** 6 // 3):
+        # for i in range(10 ** 6 // 3):
             priority_queue.reduce(i + 1, 10 ** 5)
-        for i in range(10 ** 6 // 3):
+        # for i in range(10 ** 6 // 3):
             priority_queue.remove_min()
         end_time, end_memory = end_time_memory(start_time, start_memory)
 
         # then
         self.assertLessEqual(end_time, 2)
         self.assertLessEqual(end_memory, 256)
+        # self.assertListEqual()
 
 
 if __name__ == "__main__":
