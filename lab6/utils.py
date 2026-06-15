@@ -1,6 +1,20 @@
 import time
 import random
-import memory_profiler
+import sys
+
+try:
+    import memory_profiler
+except ImportError:
+    memory_profiler = None
+
+if hasattr(sys, "set_int_max_str_digits"):
+    sys.set_int_max_str_digits(0)
+
+
+def _memory_usage():
+    if memory_profiler is None:
+        return 0
+    return memory_profiler.memory_usage()[0]
 
 
 def read_from_file(path):
@@ -16,13 +30,13 @@ def write_in_file(data,path):
 
 def start_time_memory():
     start_time = time.perf_counter()
-    start_memory = memory_profiler.memory_usage()[0]
+    start_memory = _memory_usage()
     return start_time, start_memory
 
 
 def end_time_memory(start_time, start_memory):
     end_time = time.perf_counter() - start_time
-    end_memory = memory_profiler.memory_usage()[0] - start_memory
+    end_memory = _memory_usage() - start_memory
     return end_time, end_memory
 
 def generate_big_data(n, max_size):

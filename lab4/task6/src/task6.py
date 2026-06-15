@@ -1,4 +1,5 @@
 import os, sys
+from collections import deque
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
 
@@ -17,7 +18,7 @@ class ArrayQueue:
         self.array = [None] * ArrayQueue.DEFAULT_CAPACITY
         self.size = 0
         self.front = 0
-        self.min_elem = float("inf")
+        self.min_queue = deque()
 
     def __len__(self):
         return self.size
@@ -29,8 +30,10 @@ class ArrayQueue:
         self.array[available] = elem
         self.size += 1
 
-        if self.min_elem > elem:
-            self.min_elem = elem
+        min_queue = self.min_queue
+        while min_queue and min_queue[-1] > elem:
+            min_queue.pop()
+        min_queue.append(elem)
 
     def dequeue(self):
         answer = self.array[self.front]
@@ -38,21 +41,19 @@ class ArrayQueue:
         self.front = (self.front + 1) % len(self.array)
         self.size -= 1
 
-        if self.min_elem == answer:
-            self.min_elem = None
-            if self.size > 0:
-                self.min_elem = self.calculate_min()
+        if self.min_queue and self.min_queue[0] == answer:
+            self.min_queue.popleft()
         return answer
 
     def calculate_min(self):
-        self.min_elem = float("inf")
+        min_elem = float("inf")
         for elem in self.array:
-            if elem is not None and elem < self.min_elem:
-                self.min_elem = elem
-        return self.min_elem
+            if elem is not None and elem < min_elem:
+                min_elem = elem
+        return min_elem
 
     def get_min(self):
-        return self.min_elem
+        return self.min_queue[0] if self.min_queue else None
 
     def resize(self, capacity):
         old_array = self.array

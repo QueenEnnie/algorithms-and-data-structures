@@ -17,10 +17,17 @@ def is_fibonacci(number):
 
 
 def check_numbers(array):
-    result = []
-    for elem in array:
-        result.append("Yes" if is_fibonacci(elem) else "No")
-    return result
+    if not array:
+        return []
+
+    fibonacci_numbers = {0, 1}
+    previous, current = 0, 1
+    max_number = max(array)
+    while current < max_number:
+        previous, current = current, previous + current
+        fibonacci_numbers.add(current)
+
+    return ["Yes" if elem in fibonacci_numbers else "No" for elem in array]
 
 
 def task6():

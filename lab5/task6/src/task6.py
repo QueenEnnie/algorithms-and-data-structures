@@ -1,4 +1,5 @@
 import os, sys
+import heapq
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
 
@@ -10,13 +11,6 @@ PATH_OUTPUT = os.path.abspath(os.path.join(os.path.split(os.getcwd())[0], 'txtf'
 
 
 class HeapPriorityQueue:
-    class Item:
-        def __init__(self, key, value):
-            self.key = key
-            self.value = value
-        def __lt__(self, other):
-            return self.key < other.key
-
     def __init__(self):
         self.array = []
         self.index_map = {}
@@ -66,24 +60,21 @@ class HeapPriorityQueue:
                 self.down_heap(small_child)
 
     def add(self, key, value):
-        self.array.append(self.Item(key, value))
-        self.index_map[value] = len(self.array) - 1
-        self.up_heap(len(self.array) - 1)
+        self.index_map[value] = key
+        heapq.heappush(self.array, (key, value))
 
     def remove_min(self):
-        if self.is_empty():
-            return "*"
-        self.swap(0, len(self.array) - 1)
-        item = self.array.pop()
-        self.index_map[item.value] = None
-        self.down_heap(0)
-        return item.key
+        while self.array:
+            key, value = heapq.heappop(self.array)
+            if self.index_map.get(value) == key:
+                self.index_map[value] = None
+                return key
+        return "*"
 
     def reduce(self, value, new_key):
-        if value in self.index_map:
-            i = self.index_map[value]
-            self.array[i].key = new_key
-            self.up_heap(i)
+        if self.index_map.get(value) is not None:
+            self.index_map[value] = new_key
+            heapq.heappush(self.array, (new_key, value))
 
 
 

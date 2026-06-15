@@ -11,7 +11,11 @@ PATH_OUTPUT = os.path.abspath(os.path.join(os.path.split(os.getcwd())[0], 'txtf'
 
 
 class LinkedStack:
+    __slots__ = ("head", "size")
+
     class Node:
+        __slots__ = ("elem", "next_elem")
+
         def __init__(self, elem, next_elem):
             self.elem = elem
             self.next_elem = next_elem
@@ -27,14 +31,13 @@ class LinkedStack:
         return self.size == 0
 
     def push(self, elem):
-        self.head = self.Node(elem, self.head)
+        self.head = (elem, self.head)
         self.size += 1
 
     def pop(self):
-        if self.is_empty():
+        if self.size == 0:
             return "stack is empty" # ????!!!!
-        answer = self.head.elem
-        self.head = self.head.next_elem
+        answer, self.head = self.head
         self.size -= 1
         return answer
 

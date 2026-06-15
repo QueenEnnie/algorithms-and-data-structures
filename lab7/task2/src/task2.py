@@ -13,24 +13,34 @@ PATH_OUTPUT = os.path.abspath(os.path.join(os.path.split(os.getcwd())[0], 'txtf'
 def minimal_amount_of_operations(number):
     min_operations = [0] * (number + 1)
     path = [0] * (number + 1)
+    operations = min_operations
+    parents = path
 
     for i in range(2, number + 1):
-        min_operations[i] = min_operations[i - 1] + 1
-        path[i] = i - 1
-        if i % 2 == 0 and min_operations[i // 2] + 1 < min_operations[i]:
-            min_operations[i] = min_operations[i // 2] + 1
-            path[i] = i // 2
-        if i % 3 == 0 and min_operations[i // 3] + 1 < min_operations[i]:
-            min_operations[i] = min_operations[i // 3] + 1
-            path[i] = i // 3
+        best = operations[i - 1] + 1
+        parent = i - 1
+        if i & 1 == 0:
+            half = i // 2
+            candidate = operations[half] + 1
+            if candidate < best:
+                best = candidate
+                parent = half
+        if i % 3 == 0:
+            third = i // 3
+            candidate = operations[third] + 1
+            if candidate < best:
+                best = candidate
+                parent = third
+        operations[i] = best
+        parents[i] = parent
     result_path = []
     current = number
     while current != 0:
         result_path.append(current)
-        current = path[current]
+        current = parents[current]
     result_path.reverse()
 
-    return min_operations[number], result_path
+    return operations[number], result_path
 
 
 def task2():

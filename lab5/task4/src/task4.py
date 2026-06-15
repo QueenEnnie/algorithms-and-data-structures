@@ -15,23 +15,26 @@ def swap(array, i, j):
 
 
 def heapify_array(array, n, i, swaps):
-    root = i
-    left_child = 2 * i + 1
-    right_child = 2 * i + 2
-    if left_child < n and array[left_child] < array[root]:
-        root = left_child
-    if right_child < n and array[right_child] < array[root]:
-        root = right_child
-    if root != i:
-        swap(array, i, root)
+    while True:
+        root = i
+        left_child = 2 * i + 1
+        right_child = left_child + 1
+        if left_child < n and array[left_child] < array[root]:
+            root = left_child
+        if right_child < n and array[right_child] < array[root]:
+            root = right_child
+        if root == i:
+            return
+        array[i], array[root] = array[root], array[i]
         swaps.append((i, root))
-        heapify_array(array, n, root, swaps)
+        i = root
 
 
 def build_heap(array):
     swaps = []
-    for i in range(len(array) // 2 - 1, -1, -1):
-        heapify_array(array, len(array), i, swaps)
+    n = len(array)
+    for i in range(n // 2 - 1, -1, -1):
+        heapify_array(array, n, i, swaps)
     return swaps
 
 def task4():

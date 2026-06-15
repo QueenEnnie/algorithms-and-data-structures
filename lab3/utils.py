@@ -1,6 +1,16 @@
 import time
 import random
-import memory_profiler
+
+try:
+    import memory_profiler
+except ImportError:
+    memory_profiler = None
+
+
+def _memory_usage():
+    if memory_profiler is None:
+        return 0
+    return memory_profiler.memory_usage()[0]
 
 
 def generate_segments(n, min_value=-10 ** 8, max_value=10 ** 8):
@@ -25,13 +35,13 @@ def write_in_file(data,path):
 
 def start_time_memory():
     start_time = time.perf_counter()
-    start_memory = memory_profiler.memory_usage()[0]
+    start_memory = _memory_usage()
     return start_time, start_memory
 
 
 def end_time_memory(start_time, start_memory):
     end_time = time.perf_counter() - start_time
-    end_memory = memory_profiler.memory_usage()[0] - start_memory
+    end_memory = _memory_usage() - start_memory
     return end_time, end_memory
 
 def quicksort_with_key(array, begin, end, k=0):

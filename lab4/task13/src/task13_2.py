@@ -11,7 +11,11 @@ PATH_OUTPUT = os.path.abspath(os.path.join(os.path.split(os.getcwd())[0], 'txtf'
 
 
 class LinkedQueue:
+    __slots__ = ("head", "tail", "size")
+
     class Node:
+        __slots__ = ("elem", "next_elem")
+
         def __init__(self, elem, next_elem):
             self.elem = elem
             self.next_elem = next_elem
@@ -29,7 +33,7 @@ class LinkedQueue:
 
     def enqueue(self, elem):
         newest = self.Node(elem, None)
-        if self.is_empty():
+        if self.size == 0:
             self.head = newest
         else:
             self.tail.next_elem = newest
@@ -37,12 +41,12 @@ class LinkedQueue:
         self.size += 1
 
     def dequeue(self):
-        if self.is_empty():
+        if self.size == 0:
             return "queue is empty"
         answer = self.head.elem
         self.head = self.head.next_elem
         self.size -= 1
-        if self.is_empty():
+        if self.size == 0:
             self.tail = None
         return answer
 
